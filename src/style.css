@@ -6,13 +6,13 @@ body {
   padding: 0;
   margin: 0;
   padding: 50px;
-  font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+  font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
 }
 
 .container {
   background-color: white;
   max-width: 800px;
-  height: 400px;
+  height: 550px;
   border-radius: 10px;
   overflow: hidden;
   padding: 20px;
@@ -26,6 +26,7 @@ body {
   display: grid;
   grid-template: auto auto / repeat(5, 1fr);
   gap: 20px;
+
 }
 
 .die-face {
@@ -46,13 +47,14 @@ body {
 .roll-button {
   border-radius: 10px;
   border: none;
-  height: 50px;
-  width: 100px;
+  height: 75px;
+  width: 150px;
   background-color: blue;
   color: white;
   margin-top: 30px;
   font-weight: 1.2rem;
-  font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+  font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
+  margin-bottom: 20px;
 }
 
 .roll-button:hover {
@@ -61,10 +63,12 @@ body {
   transform: scale(1.02);
 }
 
-.tenzies{
+.tenzies {
   font-weight: 600;
 }
 
-.instructions{
+.instructions {
   margin-bottom: 30px;
 }
+
+

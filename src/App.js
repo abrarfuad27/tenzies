@@ -8,7 +8,9 @@ import Confetti from "react-confetti";
 
 function App() {
   const [dice, setDice] = React.useState(getNewDiceArray());
+  const [clickcount, setClickCount] = React.useState(0);
   const [tenzies, setTenzies] = React.useState(false);
+  const [elapsedTime, setElapsedTime] = React.useState(0);
 
   React.useEffect(() => {
     const allHeld = dice.every((die) => die.isHeld);
@@ -18,9 +20,25 @@ function App() {
     }
   }, [dice]);
 
-  function newGame(){
+  React.useEffect(() => {
+    let timer = null;
+
+    if (!tenzies) {
+      timer = setInterval(() => {
+        setElapsedTime((prevElapsedTime) => prevElapsedTime + 1);
+      }, 1000);
+    }
+
+    return () => {
+      clearInterval(timer);
+    };
+  }, [tenzies]);
+
+  function newGame() {
     setDice(getNewDiceArray());
     setTenzies(false);
+    setClickCount(0);
+    setElapsedTime(0);
   }
 
   function getNewDiceArray() {
@@ -49,14 +67,17 @@ function App() {
         }
       })
     );
+    setClickCount(clickcount + 1);
   }
 
   function holdDice(id) {
-    setDice((oldDice) =>
-      oldDice.map((die) => {
-        return die.id === id ? { ...die, isHeld: !die.isHeld } : die;
-      })
-    );
+    if (!tenzies) {
+      setDice((oldDice) =>
+        oldDice.map((die) => {
+          return die.id === id ? { ...die, isHeld: !die.isHeld } : die;
+        })
+      );
+    }
   }
 
   const diceArray = dice.map((die) => (
@@ -70,6 +91,12 @@ function App() {
         Roll until all dice are the same. Click each dice to freeze it at its
         current value between rolls.
       </p>
+      <div className="count-container">
+        <h2 className="count">Rolls: {clickcount}</h2>
+      </div>
+      <div>
+        <h3>Elapsed Time: {elapsedTime}s</h3>
+      </div>
       <div className="dice-container">{diceArray}</div>
       {tenzies ? (
         <button className="roll-button" onClick={newGame}>
