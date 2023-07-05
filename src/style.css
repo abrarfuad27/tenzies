@@ -26,7 +26,6 @@ body {
   display: grid;
   grid-template: auto auto / repeat(5, 1fr);
   gap: 20px;
-
 }
 
 .die-face {
@@ -71,4 +70,39 @@ body {
   margin-bottom: 30px;
 }
 
+.container-table {
+  display: flex;
+}
 
+th, td {
+  padding: 15px;
+  text-align: left;
+}
+
+th{
+  background-color: greenyellow;
+  color:whitesmoke;
+}
+
+.table {
+  width: 200px;
+  height: 100px;
+  color: black;
+  border: 1px solid;
+  background-color: white;
+  border-radius: 10px;
+  overflow: hidden;
+  margin-left: 50px;
+}
+.th {
+  border: 1px solid;
+  height: 70px;
+}
+
+td{
+  border: 1px solid black;
+  height: 20px;
+  width: 100px;
+  border-radius: 5px;
+  background-color: antiquewhite;
+}

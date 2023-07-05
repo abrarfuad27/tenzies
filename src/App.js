@@ -11,6 +11,7 @@ function App() {
   const [clickcount, setClickCount] = React.useState(0);
   const [tenzies, setTenzies] = React.useState(false);
   const [elapsedTime, setElapsedTime] = React.useState(0);
+  const [records, setRecords] = React.useState([]);
 
   React.useEffect(() => {
     const allHeld = dice.every((die) => die.isHeld);
@@ -35,6 +36,9 @@ function App() {
   }, [tenzies]);
 
   function newGame() {
+    setRecords((prevRecords) => {
+      return [...prevRecords, { rolls: clickcount, time: elapsedTime }];
+    });
     setDice(getNewDiceArray());
     setTenzies(false);
     setClickCount(0);
@@ -84,30 +88,42 @@ function App() {
     <Die key={die.id} die={die} holdDice={() => holdDice(die.id)} />
   ));
   return (
-    <main className="container">
-      {tenzies && <Confetti />}
-      <h2 className="tenzies">Tenzies</h2>
-      <p className="instructions">
-        Roll until all dice are the same. Click each dice to freeze it at its
-        current value between rolls.
-      </p>
-      <div className="count-container">
-        <h2 className="count">Rolls: {clickcount}</h2>
-      </div>
-      <div>
-        <h3>Elapsed Time: {elapsedTime}s</h3>
-      </div>
-      <div className="dice-container">{diceArray}</div>
-      {tenzies ? (
-        <button className="roll-button" onClick={newGame}>
-          New Game
-        </button>
-      ) : (
-        <button className="roll-button" onClick={handleRoll}>
-          Roll
-        </button>
-      )}
-    </main>
+    <div className="container-table">
+      <main className="container">
+        {tenzies && <Confetti />}
+        <h2 className="tenzies">Tenzies</h2>
+        <p className="instructions">
+          Roll until all dice are the same. Click each dice to freeze it at its
+          current value between rolls.
+        </p>
+        <div className="count-container">
+          <h2 className="count">Rolls: {clickcount}</h2>
+        </div>
+        <div>
+          <h3>Elapsed Time: {elapsedTime}s</h3>
+        </div>
+        <div className="dice-container">{diceArray}</div>
+        {tenzies ? (
+          <button className="roll-button" onClick={newGame}>
+            New Game
+          </button>
+        ) : (
+          <button className="roll-button" onClick={handleRoll}>
+            Roll
+          </button>
+        )}
+      </main>
+      <table className="table">
+        <tr>
+          <th>Your records</th>
+        </tr>
+        {records.map((records) => (
+          <tr>
+            <td>{records.rolls} rolls -- {records.time}s</td>
+          </tr>
+        ))}
+      </table>
+    </div>
   );
 }
 
